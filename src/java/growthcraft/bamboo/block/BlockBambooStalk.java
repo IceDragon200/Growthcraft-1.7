@@ -3,6 +3,7 @@ package growthcraft.bamboo.block;
 import java.util.List;
 import java.util.Random;
 
+import growthcraft.core.utils.BlockCheck;
 import growthcraft.bamboo.GrowthCraftBamboo;
 import growthcraft.bamboo.renderer.RenderBamboo;
 
@@ -22,6 +23,7 @@ import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockBambooStalk extends Block
 {
@@ -197,7 +199,8 @@ public class BlockBambooStalk extends Block
 
 	protected boolean isBambooOnGround(World world, int x, int y, int z)
 	{
-		boolean flag = world.getBlock(x, y - 1, z) == Blocks.grass || world.getBlock(x, y - 1, z) == Blocks.dirt;
+		// TODO: Make this IPlantable instead of checking the bamboo shoot block :O
+		boolean flag = BlockCheck.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, GrowthCraftBamboo.bambooShoot);
 		return world.getBlock(x, y, z) == this && flag;
 	}
 

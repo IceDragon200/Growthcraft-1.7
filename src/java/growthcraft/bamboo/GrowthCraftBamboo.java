@@ -65,7 +65,7 @@ public class GrowthCraftBamboo
 	public static GrowthCraftBamboo instance;
 
 	public static Block bambooBlock;
-	public static Block bambooShoot;
+	public static BlockBambooShoot bambooShoot;
 	public static Block bambooStalk;
 	public static Block bambooLeaves;
 	public static Block bambooFence;
