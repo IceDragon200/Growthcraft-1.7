@@ -2,6 +2,7 @@ package growthcraft.bamboo.world;
 
 import java.util.Random;
 
+import growthcraft.core.utils.BlockCheck;
 import growthcraft.bamboo.GrowthCraftBamboo;
 
 import net.minecraft.block.Block;
@@ -88,7 +89,8 @@ public class WorldGenBamboo extends WorldGenerator
 			else
 			{
 				Block soil = world.getBlock(i, j - 1, k);
-				boolean isSoil = (soil != null && soil.canSustainPlant(world, i, j - 1, k, ForgeDirection.UP, (BlockSapling)Blocks.sapling));
+				// TODO: Should we really be checking a sapling, shouldn't it be a bamboo shoot?
+				boolean isSoil = BlockCheck.canSustainPlantOn(world, i, j - 1, k, ForgeDirection.UP, (BlockSapling)Blocks.sapling, soil);
 
 				int it;
 				Block block;
@@ -187,12 +189,22 @@ public class WorldGenBamboo extends WorldGenerator
 
 	protected boolean func_150523_a(Block p_150523_1_)
 	{
-		return p_150523_1_.getMaterial() == Material.air || p_150523_1_.getMaterial() == Material.leaves || p_150523_1_ == Blocks.grass || p_150523_1_ == Blocks.dirt || p_150523_1_ == Blocks.log || p_150523_1_ == Blocks.log2 || p_150523_1_ == Blocks.sapling || p_150523_1_ == Blocks.vine;
+		return p_150523_1_.getMaterial() == Material.air ||
+			p_150523_1_.getMaterial() == Material.leaves ||
+			p_150523_1_ == Blocks.grass ||
+			p_150523_1_ == Blocks.dirt ||
+			p_150523_1_ == Blocks.log ||
+			p_150523_1_ == Blocks.log2 ||
+			p_150523_1_ == Blocks.sapling ||
+			p_150523_1_ == Blocks.vine;
 	}
 
 	protected boolean isReplaceable(World world, int x, int y, int z)
 	{
 		Block block = world.getBlock(x, y, z);
-		return block.isAir(world, x, y, z) || block.isLeaves(world, x, y, z) || block.isWood(world, x, y, z) || func_150523_a(block);
+		return block.isAir(world, x, y, z) ||
+			block.isLeaves(world, x, y, z) ||
+			block.isWood(world, x, y, z) ||
+			func_150523_a(block);
 	}
 }
